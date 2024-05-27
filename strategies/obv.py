@@ -30,5 +30,11 @@ def backtest(df: pd.DataFrame, ma_period: int):
     # eso hace que el -0,7% pase a ser 0,7 (ya que multiplico por la señal short -1) entonces, el pnl será de 0,7%
     df['pnl'] = df['close'].pct_change() * df['signal'].shift(1)
 
+    # Max Drawdown
+    df['cum_pnl'] = df['pnl'].cumsum()
+    df['max_cum_pnl'] = df['cum_pnl'].cummax()
+    df['drawdown'] = df['max_cum_pnl'] - df['cum_pnl']
+
+
     # retorno la sumatoria del pnl total en PORCENTAJE de la estrategia
-    return df['pnl'].sum()
+    return df['pnl'].sum(), df['drawdown'].max()

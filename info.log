@@ -17717,3 +17717,36 @@
 2024-05-27 14:24:18,538 DEBUG :: findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\VIVALDII.TTF', name='Vivaldi', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.24
 2024-05-27 14:24:18,538 DEBUG :: findfont: score(FontEntry(fname='C:\\Windows\\Fonts\\msgothic.ttc', name='MS Gothic', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.24
 2024-05-27 14:24:18,538 DEBUG :: findfont: Matching sans\-serif:style=normal:variant=normal:weight=semibold:stretch=normal:size=12.0 to DejaVu Sans ('C:\\Users\\esteb\\PycharmProjects\\backtesting\\venv\\lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSans-Bold.ttf') with score of 0.145000.
+2024-05-27 17:08:54,224 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-05-27 17:08:55,819 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-05-27 17:09:25,353 INFO :: Retrieved 263521 BTCUSDT data from database in 1.83econds
+2024-05-27 19:37:11,569 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-05-27 19:37:12,868 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-05-27 19:37:35,024 INFO :: Retrieved 2475065 BTCUSDT data from database in 1.95econds
+2024-05-27 19:38:56,881 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-05-27 19:38:58,464 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-05-27 19:39:14,822 INFO :: Retrieved 2475065 BTCUSDT data from database in 1.95econds
+2024-05-27 19:41:17,882 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-05-27 19:41:19,466 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-05-27 19:41:35,808 INFO :: Retrieved 2475065 BTCUSDT data from database in 1.97econds
+2024-05-27 19:51:05,661 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-05-27 19:51:07,305 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-05-27 19:51:22,980 INFO :: Retrieved 2475065 BTCUSDT data from database in 1.97econds
+2024-05-27 19:52:23,554 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-05-27 19:52:25,136 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-05-27 19:52:39,902 INFO :: Retrieved 2475065 BTCUSDT data from database in 1.98econds
+2024-05-27 19:55:04,478 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-05-27 19:55:06,028 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-05-27 19:55:19,883 INFO :: Retrieved 2475065 BTCUSDT data from database in 1.96econds
+2024-05-27 20:16:59,581 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-05-27 20:17:00,851 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-05-27 20:17:15,280 INFO :: Retrieved 2475065 BTCUSDT data from database in 1.96econds
+2024-05-27 20:19:21,018 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-05-27 20:19:22,349 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-05-27 20:19:47,601 INFO :: Retrieved 43201 BTCUSDT data from database in 1.8econds
+2024-05-27 20:20:22,096 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-05-27 20:20:23,725 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-05-27 20:20:50,073 INFO :: Retrieved 131041 BTCUSDT data from database in 1.82econds
+2024-05-27 20:21:13,900 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-05-27 20:21:15,534 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-05-27 20:21:56,254 INFO :: Retrieved 131041 BTCUSDT data from database in 1.82econds

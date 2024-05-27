@@ -99,4 +99,4 @@ if __name__ == "__main__":
             except ValueError:
                 continue
 
-        backtester.run(exchange, symbol, strategy, tf, from_time, to_time)
+        print(backtester.run(exchange, symbol, strategy, tf, from_time, to_time))
