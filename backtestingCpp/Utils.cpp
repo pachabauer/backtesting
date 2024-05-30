@@ -7,7 +7,7 @@ using namespace std;
 La función va a devolver vectores, que se asemejarían a listas en python
 Y para que devuelva múltiples vectores, uso tuplas.*/
 tuple<vector<double>, vector<double>, vector<double>, vector<double>, vector<double>, vector<double>>
-rearrange_candles(double **candles, string tf, int array_size)
+rearrange_candles(double **candles, string tf, long long from_time, long long to_time, int array_size)
 {
     /*establezco el vector que se encontrará que contiene los nombres de las columnas
     y el ts en milisegundos*/
@@ -45,17 +45,33 @@ rearrange_candles(double **candles, string tf, int array_size)
     Uso los timestamps para saber si las necesito updatear o crear una nueva
     el fmod() trae el resto de una división. En este caso si por ejemplo mi primera data es una candle de 5.13pm y estoy laburando con timeframe 5m, la redondea a 5.10pm
     Así actuará con el resto de los timeframes también*/
-    double current_ts = candles[0][0] - fmod(candles[0][0], tf_ms);
-    double current_o = candles[0][1];
-    double current_h = candles[0][2];
-    double current_l = candles[0][3];
-    double current_c = candles[0][4];
-    double current_v = candles[0][5];
+    double current_ts = 0.0;
+    double current_o;
+    double current_h;
+    double current_l;
+    double current_c;
+    double current_v;
 
     /* loop para saber si debo crear una vela nueva o actualizar la del timeframe actual
     también debo considerar actualizar máximos y mínimos, en caso de tener valores mayores o menores al actual*/
-    for (int i = 1; i < array_size; i++)
+    for (int i = 0; i < array_size; i++)
     {
+        if (candles[i][0] < from_time) {
+            continue;
+        }
+        /* Acá actualiza por única vez si el timestamp comienza justo en el from_time, ahí es == 0.0 y actualiza los valores, luego continua el loop */
+        else if (current_ts == 0.0) {
+            current_ts = candles[i][0] - fmod(candles[i][0], tf_ms);
+            current_o = candles[i][1];
+            current_h = candles[i][2];
+            current_l = candles[i][3];
+            current_c = candles[i][4];
+            current_v = candles[i][5];
+        }
+
+        if (candles[i][0] > to_time) {
+            break;
+        }
         /* creo nueva vela : ejemplo tf = 60 -> candles[i][0] = 130 , current_ts = 60 , tf_ms = 60, */
         if (candles[i][0] > current_ts + tf_ms)
         {

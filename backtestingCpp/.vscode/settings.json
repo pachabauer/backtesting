@@ -2,6 +2,8 @@
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "files.associations": {
         "chrono": "cpp",
-        "tuple": "cpp"
+        "tuple": "cpp",
+        "atomic": "cpp",
+        "utility": "cpp"
     }
 }
