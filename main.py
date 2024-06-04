@@ -126,8 +126,9 @@ if __name__ == "__main__":
 
             nsga2 = optimizer.Nsga2(exchange, symbol, strategy, tf, from_time, to_time, pop_size)
             current_population = nsga2.create_initial_population()
-
             evaluated_population = nsga2.evaluate_population(current_population)
+            evaluated_population = nsga2.crowding_distance(evaluated_population)
+            current_population += nsga2.create_offspring_population(current_population)
 
             # va a ir recorriendo cada backtest (individuo) y guardar sus id para luego compararlos en el método
             # non_dominated_sorting() y poder ir determinando quién domina a quien.
@@ -139,6 +140,6 @@ if __name__ == "__main__":
 
             fronts = nsga2.non_dominated_sorting(population)
 
-            for front in fronts:
-                print(front)
+            for individual in current_population:
+                print(individual)
 
