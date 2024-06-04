@@ -3,9 +3,12 @@
 #include "../Database.h"
 #include "../Utils.h"
 
+/* Uso el DLLEXPORT para Windows nomás, para enviar el programa a algo externo*/
+#define DLLEXPORT extern "C" __declspec(dllexport) 
+
 using namespace std;
 
-Psar::Psar(char *exchange_c, char *symbol_c, char *timeframe_c, long long from_time, long long to_time)
+Psar::Psar(char* exchange_c, char* symbol_c, char* timeframe_c, long long from_time, long long to_time)
 {
     exchange = exchange_c;
     symbol = symbol_c;
@@ -13,7 +16,7 @@ Psar::Psar(char *exchange_c, char *symbol_c, char *timeframe_c, long long from_t
 
     Database db(exchange);
     int array_size = 0;
-    double **res = db.get_data(symbol, exchange, array_size);
+    double** res = db.get_data(symbol, exchange, array_size);
     db.close_file();
     std::tie(ts, open, high, low, close, volume) = rearrange_candles(res, timeframe, from_time, to_time, array_size);
 }
@@ -151,3 +154,15 @@ void Psar::execute_backtest(double initial_acc, double acc_increment, double max
         af[0] = af[1];
     }
 }
+
+/* Genero interfaces para las funciones para pasarlas y que se puedan usar en Python*/
+DLLEXPORT Psar* Psar_new(char* exchange, char* symbol, char* timeframe, long long from_time, long long to_time) {
+    return new Psar(exchange, symbol, timeframe, from_time, to_time);
+}
+DLLEXPORT void Psar_execute_backtest(Psar* psar, double initial_acc, double acc_increment, double max_acc) { 
+    return psar->execute_backtest(initial_acc, acc_increment, max_acc);
+}
+/* También tendrá interfaces para generar los métodos para el pnl y el max_dd*/
+DLLEXPORT double Psar_get_pnl(Psar* psar) {return psar->pnl;}
+DLLEXPORT double Psar_get_max_dd(Psar* psar) {return psar->max_dd;}
+

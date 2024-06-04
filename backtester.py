@@ -1,5 +1,6 @@
+from ctypes import *
 from database import Hdf5Client
-from utils import resample_timeframe, STRAT_PARAMS
+from utils import resample_timeframe, STRAT_PARAMS, get_library
 import strategies.obv
 import strategies.ichimoku
 import strategies.support_resistance
@@ -54,3 +55,32 @@ def run(exchange: str, symbol: str, strategy: str, tf: str, from_time: int, to_t
                                                                    stop_loss=params['stop_loss'])
 
         return pnl, max_drawdown
+
+    # comienzo a cargar estrategias hechas en C++ (VSCODE), para ello importo librería ctypes
+    # SIEMPRE indicar los restype y argtypes, ya que sino la librería funcionará mal
+    elif strategy == "sma":
+        # indico el path de la librería e indico winmode=0 , ya que sino la librería no se encontrará
+        lib = get_library()
+
+        # instanciamos la clase para pasar los métodos
+        # a cada parámetro debo pasarlo como string compatible con C, por ello el encode()
+        obj = lib.Sma_new(exchange.encode(), symbol.encode(), tf.encode(), from_time, to_time)
+        lib.Sma_execute_backtest(obj, params['slow_ma'], params['fast_ma'])
+        pnl = lib.Sma_get_pnl(obj)
+        max_drawdown = lib.Sma_get_max_dd(obj)
+
+        return pnl, max_drawdown
+
+    elif strategy == "psar":
+        lib = get_library()
+
+        obj = lib.Psar_new(exchange.encode(), symbol.encode(), tf.encode(), from_time, to_time)
+        lib.Psar_execute_backtest(obj, params['initial_acc'], params['acc_increment'], params['max_acc'])
+        pnl = lib.Psar_get_pnl(obj)
+        max_drawdown = lib.Psar_get_max_dd(obj)
+
+        return pnl, max_drawdown
+
+
+
+

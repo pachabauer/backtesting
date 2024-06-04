@@ -6,8 +6,8 @@ using namespace std;
 /*Método para establecer otros timeframes a partir de las velas que obtengo en 1 minuto
 La función va a devolver vectores, que se asemejarían a listas en python
 Y para que devuelva múltiples vectores, uso tuplas.*/
-tuple<vector<double>, vector<double>, vector<double>, vector<double>, vector<double>, vector<double>>
-rearrange_candles(double **candles, string tf, long long from_time, long long to_time, int array_size)
+tuple< vector<double>, vector<double>, vector<double>, vector<double>, vector<double>, vector<double> > 
+rearrange_candles(double** candles, string tf, long long from_time, long long to_time, int array_size)
 {
     /*establezco el vector que se encontrará que contiene los nombres de las columnas
     y el ts en milisegundos*/
@@ -24,15 +24,15 @@ rearrange_candles(double **candles, string tf, long long from_time, long long to
     }
     else if (tf.find("h") != string::npos)
     {
-        string hours = tf.substr(0, tf.find("h"));
+        string minutes = tf.substr(0, tf.find("h"));
         /* convierto la hora a double con stod y luego a milisegundos*/
-        tf_ms = stod(hours) * 60.0 * 60.0 * 1000.0;
+        tf_ms = stod(minutes) * 60.0 * 60.0 * 1000.0;
     }
     else if (tf.find("d") != string::npos)
     {
-        string day = tf.substr(0, tf.find("d"));
+        string minutes = tf.substr(0, tf.find("d"));
         /* convierto el dia a double con stod y luego a milisegundos*/
-        tf_ms = stod(day) * 24.0 * 60.0 * 60.0 * 1000.0;
+        tf_ms = stod(minutes) * 24.0 * 60.0 * 60.0 * 1000.0;
     }
     else
     {
@@ -73,7 +73,7 @@ rearrange_candles(double **candles, string tf, long long from_time, long long to
             break;
         }
         /* creo nueva vela : ejemplo tf = 60 -> candles[i][0] = 130 , current_ts = 60 , tf_ms = 60, */
-        if (candles[i][0] > current_ts + tf_ms)
+        if (candles[i][0] >= current_ts + tf_ms)
         {
             /* es como el método append de python, para agregar la candle al vector*/
             ts.push_back(current_ts);
@@ -128,6 +128,5 @@ rearrange_candles(double **candles, string tf, long long from_time, long long to
             current_v += candles[i][5];
         }
     }
-
     return make_tuple(ts, open, high, low, close, volume);
 }

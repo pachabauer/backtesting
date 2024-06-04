@@ -1,6 +1,7 @@
 import datetime
 import logging
 import backtester
+import optimizer
 from exchanges.binance import BinanceClient
 from data_collector import collect_all
 from utils import TF_EQUIV
@@ -46,12 +47,12 @@ if __name__ == "__main__":
     if mode == "data":
         collect_all(client, exchange, symbol)
 
-    elif mode == "backtest":
+    elif mode in ["backtest", "optimize"]:
 
         # Estrategias
         # lista de estrategias disponibles para backtest
 
-        available_strategies = ["obv", "ichimoku", "sup_res"]
+        available_strategies = ["obv", "ichimoku", "sup_res", "sma", "psar"]
 
         while True:
             strategy = input(f"Choose a strategy ({', '.join(available_strategies)}) : ").lower()
@@ -99,4 +100,45 @@ if __name__ == "__main__":
             except ValueError:
                 continue
 
-        print(backtester.run(exchange, symbol, strategy, tf, from_time, to_time))
+        if mode == "backtest":
+            print(backtester.run(exchange, symbol, strategy, tf, from_time, to_time))
+
+        elif mode == "optimize":
+            # Population Size
+            # qué tamaño va a tener la muestra para generar optimizaciones
+
+            while True:
+                try:
+                    pop_size = int(input(f"Choose a population size: "))
+                    break
+                except ValueError:
+                    continue
+
+            # Iterations
+            # la cantidad de optimizaciones que queremos hacer.
+
+            while True:
+                try:
+                    generations = int(input(f"Choose a number of generations: "))
+                    break
+                except ValueError:
+                    continue
+
+            nsga2 = optimizer.Nsga2(exchange, symbol, strategy, tf, from_time, to_time, pop_size)
+            current_population = nsga2.create_initial_population()
+
+            evaluated_population = nsga2.evaluate_population(current_population)
+
+            # va a ir recorriendo cada backtest (individuo) y guardar sus id para luego compararlos en el método
+            # non_dominated_sorting() y poder ir determinando quién domina a quien.
+            i = 0
+            population = dict()
+            for bt in evaluated_population:
+                population[i] = bt
+                i += 1
+
+            fronts = nsga2.non_dominated_sorting(population)
+
+            for front in fronts:
+                print(front)
+

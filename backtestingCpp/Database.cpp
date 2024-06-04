@@ -24,9 +24,14 @@ Database::Database(const string& file_name)
     /* establezco el archivo a abrir con un parámetro en C string y en solo lectura */
     h5_file = H5Fopen(FILE_NAME.c_str(), H5F_ACC_RDONLY, fapl);
 
-    /*Si existe un error al abrir el file, dará un número negativo, con lo cual puedo identificarlo y disparar un mensaje de error*/
+    /*Si existe un error al abrir el file, dará un número negativo, con lo cual puedo identificarlo y disparar un mensaje de error
+    previo al mensaje, puedo llamar a que abra con la ruta de python (sin el ../..) ya que python abre directamente, sin ir a la raiz del directorio*/
     if (h5_file < 0) {
-        printf("Error while opening %s \n", FILE_NAME.c_str());
+        FILE_NAME = "data/" + file_name + ".h5";
+        h5_file = H5Fopen(FILE_NAME.c_str(), H5F_ACC_RDONLY, fapl);
+        if (h5_file < 0) {
+            printf("Error while opening %s \n", FILE_NAME.c_str());
+        }
     }
 }
 

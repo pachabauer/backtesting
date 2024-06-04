@@ -1,7 +1,7 @@
 import time
 import logging
 from utils import *
-from typing import *
+import typing
 from exchanges.binance import BinanceClient
 from database import Hdf5Client
 
@@ -9,7 +9,7 @@ logger = logging.getLogger()
 
 
 # Uso el Union por si más adelante quiero tomar data de otros exchanges. (en el curso usa FTX, pero ya murió)
-def collect_all(client: Union[BinanceClient], exchange: str, symbol: str):
+def collect_all(client: typing.Union[BinanceClient], exchange: str, symbol: str):
     h5_db = Hdf5Client(exchange)
     h5_db.create_dataset(symbol)
 

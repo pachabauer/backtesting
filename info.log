@@ -17750,3 +17750,61 @@
 2024-05-27 20:21:13,900 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
 2024-05-27 20:21:15,534 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
 2024-05-27 20:21:56,254 INFO :: Retrieved 131041 BTCUSDT data from database in 1.82econds
+2024-06-01 11:38:04,302 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-01 11:38:05,882 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-01 11:38:53,200 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-01 11:38:54,813 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-01 11:45:31,534 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-01 11:45:33,153 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-01 11:54:33,070 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-01 11:54:34,641 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-01 11:54:45,597 DEBUG :: Loaded backend tkagg version 8.6.
+2024-06-01 11:58:37,162 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-01 11:58:38,822 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-01 11:59:10,425 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-01 11:59:12,069 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-01 12:03:15,928 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-01 12:03:17,534 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-01 12:36:59,336 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-01 12:37:00,996 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-01 12:37:35,072 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-01 12:37:36,690 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-01 12:41:50,039 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-01 12:41:51,672 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-01 12:42:34,063 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-01 12:42:35,377 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-01 12:56:11,210 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-01 12:56:12,785 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-01 12:56:59,230 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-01 12:57:00,780 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-01 12:57:37,381 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-01 12:57:38,965 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-01 13:00:09,393 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-01 13:00:10,997 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-03 13:21:43,868 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-03 13:21:45,616 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-03 13:22:08,412 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-03 13:22:10,022 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-03 16:49:03,219 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-03 16:49:04,797 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-03 18:41:24,124 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-03 18:41:25,815 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-03 18:41:38,532 INFO :: Retrieved 2475065 BTCUSDT data from database in 1.94econds
+2024-06-04 10:41:48,313 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-04 10:41:49,972 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-04 10:42:01,738 INFO :: Retrieved 2475065 BTCUSDT data from database in 1.94econds
+2024-06-04 10:43:37,150 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-04 10:43:38,820 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-04 10:44:04,320 INFO :: Retrieved 43201 BTCUSDT data from database in 1.82econds
+2024-06-04 10:51:56,610 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-04 10:51:58,697 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-04 10:52:11,111 INFO :: Retrieved 2475065 BTCUSDT data from database in 1.93econds
+2024-06-04 10:58:02,098 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-04 10:58:03,873 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-04 10:58:16,907 INFO :: Retrieved 2475065 BTCUSDT data from database in 1.94econds
+2024-06-04 10:59:19,262 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-04 10:59:20,937 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-04 10:59:36,127 DEBUG :: Loaded backend tkagg version 8.6.
+2024-06-04 11:16:26,128 DEBUG :: Starting new HTTPS connection (1): fapi.binance.com:443
+2024-06-04 11:16:27,675 DEBUG :: https://fapi.binance.com:443 "GET /fapi/v1/exchangeInfo HTTP/1.1" 200 None
+2024-06-04 11:16:39,672 INFO :: Retrieved 2475065 BTCUSDT data from database in 1.99econds

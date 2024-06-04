@@ -3,6 +3,9 @@
 #include "../Database.h"
 #include "../Utils.h"
 
+/* Uso el DLLEXPORT para Windows nomás, para enviar el programa a algo externo*/
+#define DLLEXPORT extern "C" __declspec(dllexport) 
+
 using namespace std;
 
 Sma::Sma(char* exchange_c, char* symbol_c, char* timeframe_c, long long from_time, long long to_time)
@@ -92,3 +95,14 @@ void Sma::execute_backtest(int slow_ma, int fast_ma)
         }
     }
 }
+
+/* Genero interfaces para las funciones para pasarlas y que se puedan usar en Python*/
+DLLEXPORT Sma* Sma_new(char* exchange, char* symbol, char* timeframe, long long from_time, long long to_time) {
+    return new Sma(exchange, symbol, timeframe, from_time, to_time);
+}
+DLLEXPORT void Sma_execute_backtest(Sma* sma, int slow_ma, int fast_ma) { 
+    return sma->execute_backtest(slow_ma, fast_ma);
+}
+/* También tendrá interfaces para generar los métodos para el pnl y el max_dd*/
+DLLEXPORT double Sma_get_pnl(Sma* sma) {return sma->pnl;}
+DLLEXPORT double Sma_get_max_dd(Sma* sma) {return sma->max_dd;}
