@@ -11,7 +11,10 @@ pd.set_option("display.width", 1000)
 
 # en la estrategía original, con esos 2 parámetros obtengo los otros que conforman el indicador, pero si quiero
 # personalizarlo, debería cambiar la estrategia y pasar más parámetros.
-def backtest(df: pd.DataFrame, tenkan_period: int, kijun_period: int):
+def backtest(df_original: pd.DataFrame, tenkan_period: int, kijun_period: int):
+
+    # modifico porque se usa en otros backtest y es necesario mantener inalterado el df_original
+    df = df_original.copy()
     # Tenkan Sen: short-term signal line
 
     # rolling hace que se tome varias rows (el período, definido en window=) y calcular algo: minimo, maximo, etc

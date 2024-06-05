@@ -20,8 +20,6 @@ class BacktestResult:
 
     # reinicia el modelo a sus valores originales para ser reutilizado
     def reset_results(self):
-        self.pnl = 0.0
-        self.max_dd = 0.0
         self.dominated_by = 0
         self.dominates.clear()
         self.rank = 0

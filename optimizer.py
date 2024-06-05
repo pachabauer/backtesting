@@ -64,6 +64,22 @@ class Nsga2:
 
         return population
 
+    # esta función permite crear la nueva población en base al create_offspring_population(), es decir
+    # los mejores empiezan a integrar la nueva población
+    def create_new_population(self, fronts: typing.List[typing.List[BacktestResult]]) -> typing.List[BacktestResult]:
+
+        new_pop = []
+
+        for front in fronts:
+            if len(new_pop) + len(front) > self.population_size:
+                max_individuals = self.population_size - len(new_pop)
+                if max_individuals > 0:
+                    new_pop += sorted(front, key=lambda x: getattr(x, "crowding_distance"))[-max_individuals:]
+            else:
+                new_pop += front
+
+        return new_pop
+
     # esta función realiza el proceso de reproducción de los individuos. Se elijen 2 parents y se van cruzando
     # sus mejores parámetros a fin de ir logrando individuos mejores, hasta seleccionar los más aptos.
     def create_offspring_population(self, population: typing.List[BacktestResult]) -> typing.List[BacktestResult]:
@@ -81,9 +97,9 @@ class Nsga2:
                 random_parents = random.sample(population, k=2)
                 if random_parents[0].rank != random_parents[1].rank:
                     # toma al mejor parent para generar el child
-                    best_parent = min(random_parents, key=lambda x:getattr(x, "rank"))
+                    best_parent = min(random_parents, key=lambda x: getattr(x, "rank"))
                 else:
-                    best_parent = max(random_parents, key=lambda x:getattr(x, "crowding_distance"))
+                    best_parent = max(random_parents, key=lambda x: getattr(x, "crowding_distance"))
 
                 parents.append(best_parent)
 
@@ -124,13 +140,35 @@ class Nsga2:
                 if self.params_data[p]["type"] == float:
                     new_child.parameters[p] = round(new_child.parameters[p], self.params_data[p]["decimals"])
 
+            # paso el método para limitar los valores que pueden tener los parámetros de las estrategias.
+            new_child.parameters = self._params_constraints(new_child.parameters)
+
             if new_child.parameters not in self.population_params:
                 offspring_pop.append(new_child)
                 self.population_params.append(new_child.parameters)
 
         return offspring_pop
 
+    # creo método para definir los valores mínimos de los parámetros: por ejemplo en una estrategia sma, la slow_ma
+    # nunca debe ser menor a la fast_ma
+    def _params_constraints(self, params: typing.Dict) -> typing.Dict:
+        if self.strategy == "obv":
+            pass
 
+        elif self.strategy == "sup_res":
+            pass
+
+        elif self.strategy == "ichimoku":
+            params['kijun'] = max(params['kijun'], params['tenkan'])
+
+        elif self.strategy == "sma":
+            params['slow_ma'] = max(params['slow_ma'], params['fast_ma'])
+
+        elif self.strategy == "psar":
+            params['initial_acc'] = min(params['initial_acc'], params['max_acc'])
+            params['acc_increment'] = min(params['acc_increment'], params['max_acc'] - params['initial_acc'])
+
+        return params
 
     # Esta función permite medir la distancia entre 2 individuos de la misma Frontera. A mayor distancia, mayor
     # diversidad tienen, lo cual es mejor, mientras que una menor distancia hace que los 2 individuos sean similares,
@@ -157,7 +195,8 @@ class Nsga2:
             # asigno la distancia al individuo
             for i in range(1, len(population) - 1):
                 distance = getattr(population[i + 1], objective) - getattr(population[i - 1], objective)
-                distance = distance / (max_value - min_value)
+                if max_value - min_value != 0:
+                    distance = distance / (max_value - min_value)
                 population[i].crowding_distance += distance
 
         return population
@@ -223,6 +262,9 @@ class Nsga2:
 
             for bt in population:
                 bt.pnl, bt.max_dd = strategies.obv.backtest(self.data, ma_period=bt.parameters['ma_period'])
+                if bt.pnl == 0:
+                    bt.pnl = -float("inf")
+                    bt.max_dd = float("inf")
 
             return population
 
@@ -231,6 +273,9 @@ class Nsga2:
             for bt in population:
                 bt.pnl, bt.max_dd = strategies.ichimoku.backtest(self.data, tenkan_period=bt.parameters['tenkan'],
                                                                  kijun_period=bt.parameters['kijun'])
+                if bt.pnl == 0:
+                    bt.pnl = -float("inf")
+                    bt.max_dd = float("inf")
 
             return population
 
@@ -244,6 +289,9 @@ class Nsga2:
                                                                            rounding_nb=bt.parameters['rounding_nb'],
                                                                            take_profit=bt.parameters['take_profit'],
                                                                            stop_loss=bt.parameters['stop_loss'])
+                if bt.pnl == 0:
+                    bt.pnl = -float("inf")
+                    bt.max_dd = float("inf")
 
             return population
 
@@ -253,13 +301,21 @@ class Nsga2:
                 bt.pnl = self.lib.Sma_get_pnl(self.obj)
                 bt.max_dd = self.lib.Sma_get_max_dd(self.obj)
 
+                if bt.pnl == 0:
+                    bt.pnl = -float("inf")
+                    bt.max_dd = float("inf")
+
             return population
 
         elif self.strategy == "psar":
             for bt in population:
-                self.lib.Psar_execute_backtest(self.obj, bt.parameters['initial_acc'],
-                                               bt.parameters['acc_increment'], bt.parameters['max_acc'])
+                self.lib.Psar_execute_backtest(self.obj, bt.parameters['initial_acc'], bt.parameters['acc_increment'],
+                                               bt.parameters['max_acc'])
                 bt.pnl = self.lib.Psar_get_pnl(self.obj)
                 bt.max_dd = self.lib.Psar_get_max_dd(self.obj)
+
+                if bt.pnl == 0:
+                    bt.pnl = -float("inf")
+                    bt.max_dd = float("inf")
 
             return population

@@ -70,7 +70,7 @@ if __name__ == "__main__":
 
         while True:
             # si presiona Enter, se toma como que quiere toda la data disponible
-            from_time = input(f"Backtest from (yyyy-mm-dd or press Enter): ")
+            from_time = input("Backtest from (yyyy-mm-dd or Press Enter): ")
             if from_time == "":
                 from_time = 0
                 break
@@ -86,7 +86,7 @@ if __name__ == "__main__":
 
         while True:
             # si presiona Enter, se toma como que quiere toda la data disponible
-            to_time = input(f"Backtest to (yyyy-mm-dd or press Enter): ")
+            to_time = input("Backtest to (yyyy-mm-dd or Press Enter): ")
             if to_time == "":
                 # paso a timestamp la fecha de hoy
                 to_time = int(datetime.datetime.now().timestamp() * 1000)
@@ -125,21 +125,47 @@ if __name__ == "__main__":
                     continue
 
             nsga2 = optimizer.Nsga2(exchange, symbol, strategy, tf, from_time, to_time, pop_size)
-            current_population = nsga2.create_initial_population()
-            evaluated_population = nsga2.evaluate_population(current_population)
-            evaluated_population = nsga2.crowding_distance(evaluated_population)
-            current_population += nsga2.create_offspring_population(current_population)
 
-            # va a ir recorriendo cada backtest (individuo) y guardar sus id para luego compararlos en el método
-            # non_dominated_sorting() y poder ir determinando quién domina a quien.
-            i = 0
-            population = dict()
-            for bt in evaluated_population:
-                population[i] = bt
-                i += 1
+            # cambio los nombres de variables y los adapto de acuerdo al paper del nsga2
+            # p , q , r
+            p_population = nsga2.create_initial_population()
+            p_population = nsga2.evaluate_population(p_population)
+            p_population = nsga2.crowding_distance(p_population)
 
-            fronts = nsga2.non_dominated_sorting(population)
+            g = 0
+            while g < generations:
 
-            for individual in current_population:
+                q_population = nsga2.create_offspring_population(p_population)
+                q_population = nsga2.evaluate_population(q_population)
+
+                r_population = p_population + q_population
+
+                nsga2.population_params.clear()
+
+                # va a ir recorriendo cada backtest (individuo) y guardar sus id para luego compararlos en el método
+                # non_dominated_sorting() y poder ir determinando quién domina a quien.
+                i = 0
+                population = dict()
+                for bt in r_population:
+                    bt.reset_results()
+                    nsga2.population_params.append(bt.parameters)
+                    population[i] = bt
+                    i += 1
+
+                fronts = nsga2.non_dominated_sorting(population)
+
+                # arranca el loop para conformar la población nueva y optimizada
+                for j in range(len(fronts)):
+                    fronts[j] = nsga2.crowding_distance(fronts[j])
+
+                p_population = nsga2.create_new_population(fronts)
+
+                print(f"\r{int((g + 1) / generations * 100)}%", end='')
+
+                g += 1
+
+            print("\n")
+
+            for individual in p_population:
                 print(individual)
 
